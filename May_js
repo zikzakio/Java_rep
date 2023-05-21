@@ -1,0 +1,38 @@
+function merge(leftArr, rightArr) {
+  var mergedArr = [];
+  var leftIndex = 0;
+  var rightIndex = 0;
+
+  while (leftIndex < leftArr.length && rightIndex < rightArr.length) {
+    if (leftArr[leftIndex] < rightArr[rightIndex]) {
+      mergedArr.push(leftArr[leftIndex]);
+      leftIndex++;
+    } else {
+      mergedArr.push(rightArr[rightIndex]);
+      rightIndex++;
+    }
+  }
+
+  return mergedArr.concat(leftArr.slice(leftIndex)).concat(rightArr.slice(rightIndex));
+}
+
+// Функция для сортировки массива с использованием алгоритма сортировки слиянием
+function mergeSort(arr) {
+  if (arr.length <= 1) {
+    return arr;
+  }
+
+  var middle = Math.floor(arr.length / 2);
+  var leftArr = arr.slice(0, middle);
+  var rightArr = arr.slice(middle);
+
+  var sortedLeftArr = mergeSort(leftArr);
+  var sortedRightArr = mergeSort(rightArr);
+
+  return merge(sortedLeftArr, sortedRightArr);
+}
+
+// Пример использования функции
+var unsortedArray = [9, 4, 7, 2, 5, 1, 6, 8, 3];
+var sortedArray = mergeSort(unsortedArray);
+console.log("Отсортированный массив: " + sortedArray);
